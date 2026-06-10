@@ -1,0 +1,332 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(IFSPPetsApp());
+}
+
+class IFSPPetsApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'IFSP Pets',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+      ),
+      home: HomePage(),
+    );
+  }
+}
+
+class Cachorro {
+  final String nome;
+  final String descricao;
+  final String saude;
+  final String imagem;
+
+  Cachorro({
+    required this.nome,
+    required this.descricao,
+    required this.saude,
+    required this.imagem,
+  });
+}
+
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+  // Controla qual tela está aberta no menu inferior //
+  int _currentIndex = 0;
+
+  final int racaoArrecadada = 120;
+  final int metaRacao = 300;
+
+  final int cobertasArrecadadas = 35;
+  final int metaCobertas = 80;
+
+  final List<Cachorro> cachorros = [
+    Cachorro(
+      nome: 'Chica',
+      descricao: 'Fêmea bronze muito carinhosa.',
+      saude: 'Vacinas em dia.',
+      imagem:
+          'https://images.unsplash.com/photo-1548199973-03cce0bbc87b',
+    ),
+    Cachorro(
+      nome: 'Tibúrcio',
+      descricao: 'Cachorro grande amarelo.',
+      saude: 'Necessita de mais ração.',
+      imagem:
+          'https://images.unsplash.com/photo-1517849845537-4d257902454a',
+    ),
+    Cachorro(
+      nome: 'Morceguinho',
+      descricao: 'Preto, dócil e brincalhão.',
+      saude: 'Recuperando peso.',
+      imagem:
+          'https://images.unsplash.com/photo-1537151625747-768eb6cf92b2',
+    ),
+    Cachorro(
+      nome: 'Baleio',
+      descricao: 'Preto e gordinho.',
+      saude: 'Controle de peso.',
+      imagem:
+          'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e',
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> telas = [
+      telaInicio(),
+      telaCaes(),
+      telaDoacoes(),
+      telaColeta(),
+      telaMais(),
+    ];
+
+  // Esqueleto do aplicativo //
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('IFSP Pets Solidário'),
+        backgroundColor: Colors.green,
+      ),
+      body: telas[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        selectedItemColor: Colors.green,
+        type: BottomNavigationBarType.fixed,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Início',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.pets),
+            label: 'Cães',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Doações',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.location_on),
+            label: 'Coleta',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.info),
+            label: 'Mais',
+          ),
+        ],
+      ),
+    );
+  }
+
+// Tela Inicial //
+  Widget telaInicio() {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            color: Colors.red,
+            padding: const EdgeInsets.all(15),
+            child: const Text(
+              'Ajude nossos cães com amor ❤️',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+              ),
+            ),
+          ),
+
+        // Card da Arrecadação de Rações //
+          Card(
+            margin: const EdgeInsets.all(15),
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(
+                children: [
+                  const Text(
+                    'Arrecadação de Rações 🐶',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text('Meta: $metaRacao kg'),
+                  Text('Arrecadado: $racaoArrecadada kg'),
+                  const SizedBox(height: 10),
+                  LinearProgressIndicator(
+                    value: racaoArrecadada / metaRacao,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          
+        // Card da Campanha do Frio //
+          Card(
+            margin: const EdgeInsets.all(15),
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(
+                children: [
+                  const Text(
+                    'Campanha do Frio 🧥',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text('Meta: $metaCobertas cobertas'),
+                  Text('Arrecadadas: $cobertasArrecadadas'),
+                  const SizedBox(height: 10),
+                  LinearProgressIndicator(
+                    value: cobertasArrecadadas / metaCobertas,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+//Tela com as fotos dos cães, e a informação de saúde //
+  Widget telaCaes() {
+    return ListView.builder(
+      itemCount: cachorros.length,
+      itemBuilder: (context, index) {
+        final cachorro = cachorros[index];
+
+        return Card(
+          margin: const EdgeInsets.all(10),
+          child: Column(
+            children: [
+              Image.network(
+                cachorro.imagem,
+                height: 220,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    Text(
+                      cachorro.nome,
+                      style: const TextStyle(
+                        fontSize: 24,
+                        color: Colors.green,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(cachorro.descricao),
+                    Text(
+                      'Saúde: ${cachorro.saude}',
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+//Tela de doações em PIX //
+  Widget telaDoacoes() {
+    return Center(
+      child: ElevatedButton(
+        child: const Text('Fazer Doação PIX'),
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Doação PIX'),
+              content: const Text(
+                'PIX: ifsp.pets@pix.com',
+              ),
+              actions: [
+                TextButton(
+                  child: const Text('Fechar'),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  // Tela responsável por exibir o ponto de coleta //
+  // de rações, cobertas e medicamentos. //
+  Widget telaColeta() {
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: const [
+              Icon(
+                Icons.location_on,
+                color: Colors.red,
+                size: 80,
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Ponto de Coleta',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 15),
+              Text('Responsável: Nair'),
+              Text('IFSP - Campus São Paulo'),
+              Text('Recebemos:'),
+              Text('🐶 Rações'),
+              Text('🧥 Cobertas'),
+              Text('💊 Remédios'),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget telaMais() {
+    return const Center(
+      child: Padding(
+        padding: EdgeInsets.all(20),
+        child: Text(
+          'Obrigado por ajudar os cães do IFSP Pets Solidário ❤️',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 22),
+        ),
+      ),
+    );
+  }
+}
