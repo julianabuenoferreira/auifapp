@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/cachorro.dart';
 
+//Cartão com a imagem dos cachorros e informação de saúde//
 class CachorroCard extends StatelessWidget {
 
   final Cachorro cachorro;
