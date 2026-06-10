@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//Cartão de arrecadação //
 class ArrecadacaoCard extends StatelessWidget {
 
   final String titulo;
