@@ -1,5 +1,6 @@
 import '../models/cachorro.dart';
 
+//Tela com as imagens dos cachorros//
 final List<Cachorro> cachorros = [
 
   Cachorro(
