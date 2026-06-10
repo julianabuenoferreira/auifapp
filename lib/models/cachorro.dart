@@ -1,6 +1,6 @@
 import '../models/cachorro.dart';
 
-//Tela com a imagem dos cachorros e as notícias de saúde //
+//Tela com a imagem dos cachorros Chica e Tibúrcio e as notícias de saúde //
 
 final List<Cachorro> cachorros = [
 
