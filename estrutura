@@ -1,0 +1,16 @@
+ifsp-pets-app/
+
+├── lib/
+│   ├── main.dart
+│   ├── home_page.dart
+│   └── doacoes_page.dart
+│
+├── assets/
+│   └── images/
+│       ├── logo.png
+│       ├── cachorro.png
+│       └── gato.png
+│
+├── pubspec.yaml
+├── README.md
+└── .gitignore
