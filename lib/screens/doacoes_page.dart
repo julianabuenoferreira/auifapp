@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//Página de doações//
 class DoacoesPage extends StatelessWidget {
 
   const DoacoesPage({super.key});
