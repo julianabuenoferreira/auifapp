@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//Cores utilizadas no app//
 class AppCores {
 
   static const Color verde = Colors.green;
