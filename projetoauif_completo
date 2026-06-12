@@ -295,7 +295,7 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(height: 15),
               Text('Responsável: Nair'),
-              Text('IFSP - Campus São Paulo'),
+              Text('IFSP - Campus Itapetininga'),
               Text('Recebemos:'),
               Text('🐶 Rações'),
               Text('🧥 Cobertas'),
